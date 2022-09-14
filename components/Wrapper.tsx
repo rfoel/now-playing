@@ -17,18 +17,11 @@ const Wrapper: React.FC<React.PropsWithChildren> = ({ children }) => (
                 margin: 0;
               }
               a {
+                color: black;
                 text-decoration: none;
               }
-              a, h1 {
+              a, h1, h2 {
                 mix-blend-mode: difference;
-              }
-              :root, a {
-                color: black;
-              }
-              @media (prefers-color-scheme: dark) {
-                :root, a {
-                  color: white;
-                }
               }
             `}</style>
         {children}

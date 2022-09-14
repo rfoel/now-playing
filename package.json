@@ -2,6 +2,7 @@
   "name": "now-playing",
   "version": "0.0.0",
   "scripts": {
+    "deploy": "serverless deploy --stage prod",
     "start": "serverless offline --reloadHandler"
   },
   "dependencies": {
