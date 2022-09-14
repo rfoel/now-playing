@@ -1,0 +1,21 @@
+{
+  "name": "now-playing",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "serverless offline --reloadHandler"
+  },
+  "dependencies": {
+    "got": "^12.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.104",
+    "@types/react": "^18.0.20",
+    "@types/react-dom": "^18.0.6",
+    "@types/spotify-api": "^0.0.18",
+    "esbuild": "^0.15.7",
+    "serverless-esbuild": "^1.32.8",
+    "serverless-offline": "^10.0.2"
+  }
+}

@@ -1,0 +1,27 @@
+service: now-playing
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
+    SPOTIFY_CLIENT_ID: ${ssm:/now-playing/spotifyClientId}
+    SPOTIFY_CLIENT_SECRET: ${ssm:/now-playing/spotifyClientSecret}
+    SPOTIFY_REFRESH_TOKEN: ${ssm:/now-playing/spotifyRefreshToken}
+    NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000'
+    REGION: us-east-1
+    STAGE: prod
+
+functions:
+  nowPlaying:
+    handler: functions/now-playing.handler
+    events:
+      - http:
+          path: /
+          method: get
