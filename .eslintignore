@@ -131,6 +131,3 @@ dist
 
 # esbuild
 .esbuild
-
-# macOS 
-.DS_Store

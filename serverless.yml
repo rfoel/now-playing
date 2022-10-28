@@ -3,11 +3,12 @@ service: now-playing
 plugins:
   - serverless-esbuild
   - serverless-offline
+  - serverless-domain-manager
 
 provider:
   name: aws
   runtime: nodejs16.x
-  stage: ${opt:stage, 'dev'}
+  stage: ${opt:stage, 'prod'}
   region: ${opt:region, 'us-east-1'}
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
@@ -17,6 +18,18 @@ provider:
     NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000'
     REGION: us-east-1
     STAGE: prod
+
+custom:
+  customDomain:
+    domainName: now-playing.rafaelfranco.com
+    stage: ${self:provider.stage}
+    certificateName: 'rafaelfranco.com'
+    createRoute53Record: true
+    createRoute53IPv6Record: true
+
+  esbuild:
+    watch:
+      pattern: ['*.{ts,tsx}']
 
 functions:
   nowPlaying:

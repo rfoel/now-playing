@@ -3,20 +3,36 @@
   "version": "0.0.0",
   "scripts": {
     "deploy": "serverless deploy --stage prod",
-    "start": "serverless offline --reloadHandler"
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
+    "start": "serverless offline --reloadHandler",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "got": "^12.4.1",
+    "dayjs": "^1.11.6",
+    "got": "^12.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.104",
-    "@types/react": "^18.0.20",
-    "@types/react-dom": "^18.0.6",
-    "@types/spotify-api": "^0.0.18",
-    "esbuild": "^0.15.7",
-    "serverless-esbuild": "^1.32.8",
-    "serverless-offline": "^10.0.2"
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.6",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@types/aws-lambda": "^8.10.108",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@types/spotify-api": "^0.0.19",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "esbuild": "^0.15.12",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
+    "semantic-release": "^19.0.5",
+    "serverless-domain-manager": "^6.1.0",
+    "serverless-esbuild": "^1.33.0",
+    "serverless-offline": "^11.2.1"
   }
 }
