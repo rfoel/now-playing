@@ -31,7 +31,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1",
     "semantic-release": "^19.0.5",
-    "serverless-domain-manager": "^6.1.0",
+    "serverless-domain-manager": "^6.2.3",
     "serverless-esbuild": "^1.33.0",
     "serverless-offline": "^11.2.1"
   }
