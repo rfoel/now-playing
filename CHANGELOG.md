@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/rfoel/now-playing/compare/v2.0.0...v2.0.1) (2023-04-11)
+
+
+### Bug Fixes
+
+* include fonts ([38c9fd3](https://github.com/rfoel/now-playing/commit/38c9fd3b3757a3db399c012c7d6cd1aca6bb29dd))
+
 # [2.0.0](https://github.com/rfoel/now-playing/compare/v1.0.0...v2.0.0) (2023-04-11)
 
 
