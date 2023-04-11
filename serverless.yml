@@ -26,6 +26,10 @@ functions:
           path: /
           method: get
 
+package:
+  patterns:
+    - 'assets/Roboto-Regular.ttf'
+
 resources:
   Resources:
     HttpApi:
