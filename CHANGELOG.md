@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/rfoel/now-playing/compare/v1.0.0...v2.0.0) (2023-04-11)
+
+
+### Features
+
+* use satori to generate image ([db352da](https://github.com/rfoel/now-playing/commit/db352da0097e46db28a2c5c380f624d09d71edbb))
+
+
+### BREAKING CHANGES
+
+* satori
+
 # 1.0.0 (2022-10-28)
 
 
