@@ -1,40 +1,73 @@
 service: now-playing
 
+frameworkVersion: '3'
+
 plugins:
   - serverless-esbuild
   - serverless-offline
-  - serverless-domain-manager
 
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs18.x
   stage: ${opt:stage, 'prod'}
   region: ${opt:region, 'us-east-1'}
   environment:
-    AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
     SPOTIFY_CLIENT_ID: ${ssm:/now-playing/spotifyClientId}
     SPOTIFY_CLIENT_SECRET: ${ssm:/now-playing/spotifyClientSecret}
     SPOTIFY_REFRESH_TOKEN: ${ssm:/now-playing/spotifyRefreshToken}
-    NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000'
     REGION: us-east-1
     STAGE: prod
-
-custom:
-  customDomain:
-    domainName: now-playing.rafaelfranco.com
-    stage: ${self:provider.stage}
-    certificateName: 'rafaelfranco.com'
-    createRoute53Record: true
-    createRoute53IPv6Record: true
-
-  esbuild:
-    watch:
-      pattern: ['*.{ts,tsx}']
 
 functions:
   nowPlaying:
     handler: functions/now-playing.handler
     events:
-      - http:
+      - httpApi:
           path: /
           method: get
+
+resources:
+  Resources:
+    HttpApi:
+      Type: AWS::ApiGatewayV2::Api
+      Properties: {}
+
+    ApiCloudFrontDistribution:
+      Type: AWS::CloudFront::Distribution
+      DependsOn:
+        - HttpApi
+      Properties:
+        DistributionConfig:
+          Origins:
+            - Id: Api
+              DomainName:
+                !Join [
+                  '',
+                  [!Ref HttpApi, '.execute-api.${aws:region}.amazonaws.com'],
+                ]
+              CustomOriginConfig:
+                OriginProtocolPolicy: https-only
+          Enabled: true
+          Aliases:
+            - now-playing.rafaelfranco.com
+          DefaultCacheBehavior:
+            AllowedMethods:
+              - DELETE
+              - GET
+              - HEAD
+              - OPTIONS
+              - PATCH
+              - POST
+              - PUT
+            CachedMethods:
+              - GET
+              - HEAD
+              - OPTIONS
+            TargetOriginId: Api
+            CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad # CachingDisabled
+            OriginRequestPolicyId: b689b0a8-53d0-40ab-baf2-68738e2966ac # AllViewerExceptHostHeader
+            ViewerProtocolPolicy: redirect-to-https
+          ViewerCertificate:
+            AcmCertificateArn: ${env:ACM_CERTIFICATE_ARN, ssm:/rafaelfranco/acmCertificateArn}
+            SslSupportMethod: sni-only
+            MinimumProtocolVersion: TLSv1.2_2021
